@@ -1,29 +1,32 @@
-import { NativeModules, Platform } from 'react-native';
+import PaypalWebPayments, {
+  PaypalEnvironment,
+  PayPalWebCheckoutFundingSource,
+  type PayPalWebCheckoutEvent,
+} from './NativePaypalWebPayments';
 
-const LINKING_ERROR =
-  `The package 'react-native-paypal-web-payments' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo Go\n';
+type PayPalWebCheckoutConfig = {
+  clientID: string;
+  environment: PaypalEnvironment;
+  orderID: string;
+  urlScheme: string;
+  fundingSource?: PayPalWebCheckoutFundingSource;
+  onEvent?: (result: PayPalWebCheckoutEvent) => void;
+};
 
-// @ts-expect-error
-const isTurboModuleEnabled = global.__turboModuleProxy != null;
+export {
+  PaypalEnvironment,
+  PayPalWebCheckoutFundingSource,
+} from './NativePaypalWebPayments';
 
-const PaypalWebPaymentsModule = isTurboModuleEnabled
-  ? require('./NativePaypalWebPayments').default
-  : NativeModules.PaypalWebPayments;
-
-const PaypalWebPayments = PaypalWebPaymentsModule
-  ? PaypalWebPaymentsModule
-  : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
-
-export function multiply(a: number, b: number): Promise<number> {
-  return PaypalWebPayments.multiply(a, b);
-}
+export const startCheckout = (config: PayPalWebCheckoutConfig) => {
+  PaypalWebPayments.startCheckout(
+    config.clientID,
+    config.environment,
+    config.urlScheme,
+    config.orderID,
+    config.fundingSource,
+    (args) => {
+      config.onEvent && config.onEvent(args);
+    }
+  );
+};

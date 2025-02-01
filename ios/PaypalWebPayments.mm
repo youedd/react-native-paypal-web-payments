@@ -1,19 +1,28 @@
 #import "PaypalWebPayments.h"
 
+#if __has_include("react_native_paypal_web_payments-Swift.h")
+#import "react_native_paypal_web_payments-Swift.h"
+#else
+#import <react_native_paypal_web_payments/react_native_paypal_web_payments-Swift.h>
+#endif
+
 @implementation PaypalWebPayments
 RCT_EXPORT_MODULE()
 
-// Example method
-// See // https://reactnative.dev/docs/native-modules-ios
-RCT_EXPORT_METHOD(multiply:(double)a
-                  b:(double)b
-                  resolve:(RCTPromiseResolveBlock)resolve
-                  reject:(RCTPromiseRejectBlock)reject)
-{
-    NSNumber *result = @(a * b);
-
-    resolve(result);
-}
+RCT_EXPORT_METHOD(startCheckout:(NSString *)clientID
+                  environment:(NSString *)environment
+                  urlScheme:(NSString *)urlScheme
+                  orderID:(NSString *)orderID
+                  fundingSource:(NSString *)fundingSource
+                  onEvent:(RCTResponseSenderBlock)onEvent {
+      [PaypalWebPaymentsModule
+         startCheckoutWithClientID:clientID
+         environment:environment
+         urlScheme:urlScheme
+         orderID:orderID
+         fundingSource:fundingSource
+         onEvent:onEvent];
+});
 
 // Don't compile this code when we build for the old architecture.
 #ifdef RCT_NEW_ARCH_ENABLED

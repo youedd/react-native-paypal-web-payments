@@ -1,17 +1,29 @@
-import { useState, useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-paypal-web-payments';
+import { View, StyleSheet, Button } from 'react-native';
+import { startCheckout } from 'react-native-paypal-web-payments';
+import {
+  PaypalEnvironment,
+  PayPalWebCheckoutFundingSource,
+} from '../../src/NativePaypalWebPayments';
 
 export default function App() {
-  const [result, setResult] = useState<number | undefined>();
-
-  useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Button
+        title="start"
+        onPress={() => {
+          startCheckout({
+            clientID:
+              'AT55yz0287Ab8XnDVh7eyS7n-NK72q1jxJi-aCrVu3mXDfUiJcGtqGdYKbLkBsu_wCcgugk5ONp8V4yP',
+            environment: PaypalEnvironment.sandbox,
+            urlScheme: 'example-app',
+            orderID: '1D429762RU7439242',
+            fundingSource: PayPalWebCheckoutFundingSource.paypal,
+            onEvent: (result) => {
+              console.log(result);
+            },
+          });
+        }}
+      />
     </View>
   );
 }
@@ -21,10 +33,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
   },
 });
