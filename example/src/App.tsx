@@ -1,9 +1,9 @@
 import { View, StyleSheet, Button } from 'react-native';
-import { startCheckout } from 'react-native-paypal-web-payments';
 import {
+  startCheckout,
   PaypalEnvironment,
   PayPalWebCheckoutFundingSource,
-} from '../../src/NativePaypalWebPayments';
+} from 'react-native-paypal-web-payments';
 
 export default function App() {
   return (
