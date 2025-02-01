@@ -1,6 +1,7 @@
 # react-native-paypal-web-payments
 
-PayPal Web Payments native integration for React native and Expo
+PayPal Web Payments native integration for React native and Expo.
+
 
 ## Installation
 
@@ -12,11 +13,24 @@ npm install react-native-paypal-web-payments
 
 
 ```js
-import { multiply } from 'react-native-paypal-web-payments';
+import {
+  startCheckout,
+  PaypalEnvironment,
+  PayPalWebCheckoutFundingSource,
+} from 'react-native-paypal-web-payments';
 
 // ...
 
-const result = await multiply(3, 7);
+startCheckout({
+  clientID: "client-id",
+  environment: PaypalEnvironment.sandbox,
+  urlScheme: "url-scheme",
+  orderID: "order-id",
+  fundingSource: PayPalWebCheckoutFundingSource.paypal,
+  onEvent: (result) => {
+    console.log(result);
+  },
+});
 ```
 
 
