@@ -33,6 +33,41 @@ startCheckout({
 });
 ```
 
+## Android
+Add `onNewIntent` to the MainActivity in your app:
+
+```kt
+
+import android.content.Intent
+// ...
+
+class MainActivity : ReactActivity() {
+
+  // ...
+  
+  override fun onNewIntent(newIntent: Intent?) {
+    super.onNewIntent(newIntent)
+    intent = newIntent
+  }
+```
+
+Update your app's AndroidManifest.xml with your custom URL scheme in the intent-filter
+
+```xml
+ <activity
+  android:name=".MainActivity"
+  ...>
+  ...
+  <intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="custom-url-scheme" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+  </intent-filter>
+</activity>
+```
+
+
 
 ## Contributing
 
