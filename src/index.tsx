@@ -74,7 +74,7 @@ export const startCheckout = (config: PayPalWebCheckoutConfig) => {
     config.environment,
     config.urlScheme,
     config.orderID,
-    config.fundingSource,
+    config.fundingSource || PayPalWebCheckoutFundingSource.paypal,
     (args: any) => {
       config.onEvent && config.onEvent(args);
     }
