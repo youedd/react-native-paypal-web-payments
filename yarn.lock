@@ -1804,11 +1804,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/config-plugins@npm:^9.0.14":
-  version: 9.0.14
-  resolution: "@expo/config-plugins@npm:9.0.14"
+"@expo/config-plugins@npm:^9.0.15":
+  version: 9.0.15
+  resolution: "@expo/config-plugins@npm:9.0.15"
   dependencies:
-    "@expo/config-types": ^52.0.3
+    "@expo/config-types": ^52.0.4
     "@expo/json-file": ~9.0.1
     "@expo/plist": ^0.2.1
     "@expo/sdk-runtime-versions": ^1.0.0
@@ -1822,14 +1822,14 @@ __metadata:
     slugify: ^1.6.6
     xcode: ^3.0.1
     xml2js: 0.6.0
-  checksum: d411b2a8ab1602318e02c9ef8c1710b63373d4eedbcba07c29843140c454ee83343fbc82c38a54e0e2ccfc5a6c20234b749fbb62f02178bf0275a037adc23b3b
+  checksum: ac45abd0b23048eb1e38eb1dc8c543c713c0066cc5c05a0685267ce4d3f769731ac39dd249fa88b5263a8c02aea920ab3e79c4ad2ac23e05f5b1d77ba1e47ef7
   languageName: node
   linkType: hard
 
-"@expo/config-types@npm:^52.0.3":
-  version: 52.0.3
-  resolution: "@expo/config-types@npm:52.0.3"
-  checksum: cd601d86537ad65bdf5f9731028618b1fc540726d06953e3349c62c0e5e33466aba04cdd993763e0094afa48059a36605ae4c419be23a4485e0c17b2223c0d8d
+"@expo/config-types@npm:^52.0.4":
+  version: 52.0.4
+  resolution: "@expo/config-types@npm:52.0.4"
+  checksum: d9489d0bf5c619d68938673b6fbfa5f4ebe626316e95763f0f396c9e09bff1adc2d00cc814088e2e0039c0b344b57df580439e38bef16ed43d2d5d40c87d453f
   languageName: node
   linkType: hard
 
@@ -11166,7 +11166,7 @@ __metadata:
   dependencies:
     "@commitlint/config-conventional": ^17.0.2
     "@evilmartians/lefthook": ^1.5.0
-    "@expo/config-plugins": ^9.0.14
+    "@expo/config-plugins": ^9.0.15
     "@react-native/eslint-config": ^0.73.1
     "@release-it/conventional-changelog": ^5.0.0
     "@types/jest": ^29.5.5
