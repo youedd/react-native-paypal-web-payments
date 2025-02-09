@@ -155,3 +155,35 @@ jobs:
       - name: Build example for iOS
         run: |
           yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}"
+  
+  publish-package:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://npm.pkg.github.com/
+          scope: '@youedd'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build package
+        run: yarn prepare
+
+      - name: Publish to GitHub Packages
+        run: |
+          sed -i 's|"name": "|"name": "@youedd/|g' package.json
+          sed -i 's|https://registry.npmjs.org/|https://npm.pkg.github.com/@youedd|g' package.json
+          npm version --no-git-tag-version --new-version 0.0.1-pr-${{ github.event.number }}
+          npm publish --tag pr-${{ github.event.number }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
