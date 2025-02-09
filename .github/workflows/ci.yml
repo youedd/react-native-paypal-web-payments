@@ -165,16 +165,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          registry-url: https://npm.pkg.github.com/
-          scope: '@youedd'
-
-      - name: Install dependencies
-        run: yarn install
+      
+      - name: Setup
+        uses: ./.github/actions/setup
 
       - name: Build package
         run: yarn prepare

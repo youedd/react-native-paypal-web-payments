@@ -8,6 +8,8 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version-file: .nvmrc
+        registry-url: https://npm.pkg.github.com/
+        scope: '@youedd'
 
     - name: Cache dependencies
       id: yarn-cache
