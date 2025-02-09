@@ -2,7 +2,8 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-paypal-web-payments": ["./src/index"]
+      "react-native-paypal-web-payments": ["./src/index"],
+      "react-native-paypal-web-payments/package.json": ["./package.json"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
