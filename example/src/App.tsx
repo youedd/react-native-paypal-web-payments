@@ -1,22 +1,25 @@
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import {
   startCheckout,
   PaypalEnvironment,
   PayPalWebCheckoutFundingSource,
 } from 'react-native-paypal-web-payments';
+import { PayPalButton } from 'react-native-paypal-buttons';
 
 export default function App() {
+  const clientID = '';
+  const urlScheme = 'example-app';
+  const orderID = '';
+
   return (
     <View style={styles.container}>
-      <Button
-        title="start"
+      <PayPalButton
         onPress={() => {
           startCheckout({
-            clientID:
-              'AT55yz0287Ab8XnDVh7eyS7n-NK72q1jxJi-aCrVu3mXDfUiJcGtqGdYKbLkBsu_wCcgugk5ONp8V4yP',
+            clientID,
+            urlScheme,
+            orderID,
             environment: PaypalEnvironment.sandbox,
-            urlScheme: 'example-app',
-            orderID: '1D429762RU7439242',
             fundingSource: PayPalWebCheckoutFundingSource.paypal,
             onEvent: (result) => {
               console.log(result);
@@ -31,7 +34,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    padding: 40,
     justifyContent: 'center',
   },
 });
