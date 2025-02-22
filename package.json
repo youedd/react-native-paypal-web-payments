@@ -1,6 +1,6 @@
 {
   "name": "react-native-paypal-web-payments",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "PayPal Web Payments native integration for React native and Expo",
   "source": "./src/index.ts",
   "main": "./lib/commonjs/index.js",
