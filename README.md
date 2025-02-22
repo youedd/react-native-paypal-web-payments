@@ -8,6 +8,7 @@ PayPal Web Payments native integration for React native and Expo.
 - [Installation](#installation)
   - [Setup](#setup)
 - [Usage](#usage)
+- [Useful Links](#useful-links)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -98,6 +99,12 @@ import { PayPalButton } from "react-native-paypal-button";
     }}
   />
 ```
+
+## Useful Links
+- [PayPal Developer Dashboard](https://developer.paypal.com/api/rest/#link-getstarted)
+- [PayPal Order v2 API](https://developer.paypal.com/docs/api/orders/v2/)
+- [PayPal iOS SDK](https://developer.paypal.com/docs/checkout/advanced/ios/)
+- [PayPal Android SDK](https://developer.paypal.com/docs/checkout/advanced/android/)
 
 ## Contributing
 
