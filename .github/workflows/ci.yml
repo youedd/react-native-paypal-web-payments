@@ -157,6 +157,7 @@ jobs:
       - name: React native doctor
         run: |
           cd example
+          yarn
           npx react-native doctor
 
       - name: Build example for iOS
