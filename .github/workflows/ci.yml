@@ -149,15 +149,9 @@ jobs:
         run: |
           cd example
           bundle install
-          cd ios
-          pod install
+          pod install --project-directory=ios
         env:
           NO_FLIPPER: 1
-
-      - name: React native doctor
-        run: |
-          cd example
-          yarn react-native doctor
 
       - name: Build example for iOS
         run: |
