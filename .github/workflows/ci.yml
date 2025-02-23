@@ -155,8 +155,10 @@ jobs:
           NO_FLIPPER: 1
 
       - name: React native doctor
-        run: npx react-native doctor
-        
+        run: |
+          cd example
+          npx react-native doctor
+
       - name: Build example for iOS
         run: |
           yarn run build:ios
