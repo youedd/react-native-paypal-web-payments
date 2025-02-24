@@ -38,7 +38,12 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "paypal",
+    "checkout",
+    "web",
+    "payments",
+    "native"
   ],
   "repository": {
     "type": "git",
