@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
 
-  s.dependency  "PayPal/PayPalWebPayments"
+  s.dependency  "PayPal/PayPalWebPayments", "~> 1.5.0"
 
 
   # Use install_modules_dependencies helper to install the dependencies if React Native version >=0.71.0.
