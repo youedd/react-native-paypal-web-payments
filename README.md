@@ -82,7 +82,7 @@ import {
   PaypalEnvironment,
   PayPalWebCheckoutFundingSource,
 } from 'react-native-paypal-web-payments';
-import { PayPalButton } from "react-native-paypal-button";
+import { PayPalButton } from "react-native-paypal-buttons";
 // ...
   <PayPalButton
     onPress={() => {
