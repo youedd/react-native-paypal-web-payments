@@ -11,9 +11,9 @@ export const setOnNewIntent = (mainActivity: string) => {
   }
   let result = mainActivity;
   const methodCode = `
-  override fun onNewIntent(newIntent: Intent) {
-      super.onNewIntent(newIntent)
-      intent = newIntent
+  override fun onNewIntent(intent: Intent) {
+      super.onNewIntent(intent)
+      this.intent = intent
   }`;
 
   // Ensure the necessary import is present
