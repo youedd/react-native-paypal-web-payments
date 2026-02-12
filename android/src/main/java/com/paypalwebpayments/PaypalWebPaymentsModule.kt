@@ -36,14 +36,14 @@ class PaypalWebPaymentsModule internal constructor(context: ReactApplicationCont
     onEvent: Callback?
   ) {
 
-    currentActivity!!.runOnUiThread {
+    reactApplicationContext.currentActivity!!.runOnUiThread {
       val config = CoreConfig(
         clientID,
         environment.toEnvironment()
       )
 
       val payPalWebCheckoutClient = PayPalWebCheckoutClient(
-        currentActivity as FragmentActivity,
+        reactApplicationContext.currentActivity as FragmentActivity,
         config,
         urlScheme
       )
