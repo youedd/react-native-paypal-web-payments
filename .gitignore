@@ -80,3 +80,4 @@ lib/
 # env files
 .env
 .env.local
+.npmrc
