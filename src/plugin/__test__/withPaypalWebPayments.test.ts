@@ -14,7 +14,7 @@ describe('withPaypalWebPayments', () => {
     const updatedContent = setOnNewIntent(content);
 
     expect(updatedContent).toContain(
-      'override fun onNewIntent(newIntent: Intent)'
+      'override fun onNewIntent(intent: Intent)'
     );
     expect(updatedContent).toContain('import android.content.Intent');
   });

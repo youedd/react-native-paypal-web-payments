@@ -106,6 +106,93 @@ jobs:
         run: |
           yarn turbo run build:android --cache-dir="${{ env.TURBO_CACHE_DIR }}"
 
+  publish-preview:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: [lint, test, build-library]
+    permissions:
+      contents: read
+      packages: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Build package
+        run: yarn prepare
+
+      - name: Set preview version
+        run: |
+          SHORT_SHA=$(echo "${{ github.event.pull_request.head.sha }}" | cut -c1-7)
+          VERSION="0.0.0-pr.${{ github.event.pull_request.number }}.${SHORT_SHA}"
+          node -e "
+            const pkg = require('./package.json');
+            pkg.name = '@youedd/react-native-paypal-web-payments';
+            pkg.version = '${VERSION}';
+            pkg.publishConfig = { registry: 'https://npm.pkg.github.com' };
+            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+          echo "Published version: ${VERSION}"
+
+      - name: Publish to GitHub Packages
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > .npmrc
+          echo "@youedd:registry=https://npm.pkg.github.com" >> .npmrc
+          npm publish --tag pr-${{ github.event.pull_request.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const sha = '${{ github.event.pull_request.head.sha }}'.substring(0, 7);
+            const version = `0.0.0-pr.${{ github.event.pull_request.number }}.${sha}`;
+            const body = [
+              `### 📦 Preview package published`,
+              '',
+              `Install this PR build for testing:`,
+              '',
+              '```bash',
+              `yarn add @youedd/react-native-paypal-web-payments@${version}`,
+              '```',
+              '',
+              `**Tag:** \`pr-${{ github.event.pull_request.number }}\` &nbsp; **Version:** \`${version}\` &nbsp; **Commit:** \`${sha}\``,
+              '',
+              '<details>',
+              '<summary>Setup instructions for GitHub Packages</summary>',
+              '',
+              '1. Create a GitHub Personal Access Token with `read:packages` scope at **Settings > Developer settings > Personal access tokens**',
+              '',
+              '2. Configure your project to use GitHub Packages for the `@youedd` scope:',
+              '',
+              '   **Yarn Berry (v3+):** add to `.yarnrc.yml`',
+              '   ```yaml',
+              '   npmScopes:',
+              '     youedd:',
+              '       npmRegistryServer: "https://npm.pkg.github.com"',
+              '       npmAuthToken: "YOUR_GITHUB_PAT"',
+              '   ```',
+              '',
+              '   **npm / Yarn Classic:** add to `.npmrc`',
+              '   ```',
+              '   //npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT',
+              '   @youedd:registry=https://npm.pkg.github.com',
+              '   ```',
+              '',
+              '</details>',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ github.event.pull_request.number }},
+              body,
+            });
+
   build-ios:
     runs-on: macos-14
     env:
