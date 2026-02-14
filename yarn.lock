@@ -11192,7 +11192,6 @@ __metadata:
     react: 18.3.1
     react-native: 0.77.0
     react-native-builder-bob: ^0.36.0
-    react-native-paypal-buttons: ^1.0.0
     release-it: ^15.0.0
     turbo: ^1.10.7
     typescript: ^5.2.2
